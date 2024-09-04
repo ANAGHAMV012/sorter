@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sorter</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="box first"></div>
+            <div class="box second"></div>
+            <div class="box third"></div>
+        </div>
+        <div class="box main">
+            <div class="item one">1</div>
+            <div class="item two">2</div>
+            <div class="item three">3</div>
+            <div class="item four">4</div>
+            <div class="item five">5</div>
+            <div class="item six">6</div>
+            <div class="item seven">7</div>
+            <div class="item eight">8</div>
+            <div class="item nine">9</div>
+        </div>
+        <p>SELECT ANY NUMBER</p>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+            }
+            body {
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 20px;
+                background: linear-gradient(to bottom, rgb(0, 132, 255) 50%, white);
+            }
+            .container {
+                display: flex;
+                gap: 20px;
+                justify-content: space-between;
+            }
+            .box {
+                height: 450px;
+                width: 100px;
+                background-color: aliceblue;
+                border: 2px solid black;
+                border-bottom-left-radius: 25px;
+                border-bottom-right-radius: 25px;
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                justify-content: end;
+                padding: 30px;
+                text-align: center;
+            }
+            .first{
+                align-items: center;
+            }
+            .item {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: yellowgreen;
+            }
+            .one{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: red;
+            }
+            .two{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: pink;
+            }
+            .three{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: green;
+            }
+            .four{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: blue;
+            }
+            .five{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: violet;
+            }
+            .six{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: orange;
+            }
+            .seven{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: orchid;
+            }
+            .eight{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: orangered;
+            }
+            .nine{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid black;
+                cursor: pointer;
+                margin-bottom: 5px;
+                background-color: purple;
+            }
+            .main {
+                width: 300px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                align-items: start;
+                text-align: center;
+                position: relative;
+                justify-content: space-evenly;
+                justify-items: center;
+                align-content: space-evenly;
+                align-items: center;
+            }
+        </style>
+        <script>
+            const items = document.querySelectorAll('.item');
+            const boxes = document.querySelectorAll('.box');
+            // Function to add click event listener to each item
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Create a new element that mimics the clicked item
+                    const newItem = document.createElement('div');
+                    newItem.className = 'tim ' + item.classList[1];
+                    newItem.innerText = item.innerText;
+                    // Append the new item to the first box
+                    boxes[0].appendChild(newItem);
+                    item.style.display = 'none'; // Hide the original item
+                    // Add a click listener to the new item to move it between boxes
+                    newItem.addEventListener('click', () => moveItem(newItem));
+                });
+            });
+            // Function to handle moving an item to the next box
+            function moveItem(item) {
+                const currentBox = item.parentElement;
+                const currentIndex = Array.from(boxes).indexOf(currentBox);
+                // Determine the next box to move the item to
+                const nextIndex = (currentIndex + 1) % boxes.length;
+                boxes[nextIndex].appendChild(item);
+            }
+            const first = document.querySelector('.first');
+            const boxs = document.querySelectorAll('.box:not(.main)');
+            boxs.forEach(box => {
+                box.addEventListener('click', () => {
+                    const topItem = first.firstElementChild;
+                    if (topItem) {
+                        // Move the top item to the clicked box
+                        box.appendChild(topItem);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
