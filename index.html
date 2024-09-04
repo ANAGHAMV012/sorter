@@ -29,6 +29,7 @@
             margin: 0;
         }
         body {
+            padding: 50px;
             height: 100vh;
             display: flex;
             align-items: center;
@@ -61,9 +62,6 @@
         .box.selected {
             border-color: red;
         }
-        .first {
-            align-items: center;
-        }
         .item {
             width: 50px;
             height: 50px;
@@ -89,13 +87,41 @@
             width: 300px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
             align-items: start;
             text-align: center;
             position: relative;
             justify-content: space-evenly;
             justify-items: center;
             align-content: space-evenly;
-            align-items: center;
+        }
+        @media screen and (max-width: 400px) {
+        .main {
+            width: 90%;
+            grid-template-columns: repeat(2, 1fr);
+            overflow-x: auto;
+        }
+        .seven, .eight, .nine{
+            display: none;
+        }
+        .container .box{
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            justify-content: end;
+            width: 80px;
+            padding: 0;
+            text-align: center;
+        }
+        .container .box .item{
+            margin-right: 12px;
+        }
+        }
+        @media screen and (max-width: 320px) {
+            .main {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
         }
     </style>
     <script>
@@ -121,17 +147,17 @@
         });
 
         const items = document.querySelectorAll('.item');
-            const boxes = document.querySelectorAll('.box');
-            items.forEach(item => {
-                item.addEventListener('click', () => {
-                    const newItem = document.createElement('div');
-                    newItem.className = 'item ' + item.classList[1];
-                    newItem.innerText = item.innerText;
-                    boxes[0].appendChild(newItem);
-                    item.style.display = 'none';
-                    newItem.addEventListener('click', () => moveItem(newItem));
-                });
+        const boxes = document.querySelectorAll('.box');
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const newItem = document.createElement('div');
+                newItem.className = 'item ' + item.classList[1];
+                newItem.innerText = item.innerText;
+                boxes[0].appendChild(newItem);
+                item.style.display = 'none';
+                newItem.addEventListener('click', () => moveItem(newItem));
             });
+        });
     </script>
 </body>
 </html>
